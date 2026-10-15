@@ -40,7 +40,7 @@ void link_parents(Person *child, Person *father, Person *mother) {
 void print_family_relationships(const Person *me) {
    printf("=== FAMILY TREE RELATIONSHIPS ===\n");
 
-   printf("1. YOURSELF: \n");
+   printf("1. YOURSELF:\n");
    printf("- Name: %s | Age: %d\n", me -> name, me -> age);
 
    printf("2. PARENTS:\n");
@@ -51,9 +51,15 @@ void print_family_relationships(const Person *me) {
    printf("- Grandfather: %s | Age: %d\n", me -> father -> father -> name, me -> father -> father -> age);
    printf("- Grandmother: %s | Age: %d\n", me -> father -> mother -> name, me -> father -> mother -> age);
 
-   printf("4. MATERNAL GRANDPARENTS (via Mother's Pointers): \n");
+   printf("4. MATERNAL GRANDPARENTS (via Mother's Pointers):\n");
    printf("- Grandfather: %s | Age: %d\n", me -> mother -> father -> name, me -> mother -> father -> age);
    printf("- Grandmother: %s | Age: %d\n", me -> mother -> mother -> name, me -> mother -> mother -> age);
+}
+
+void free_family_tree(Person *people[], int count) {
+   for (int i = 0; i < count; i++) {
+       free(people[i]);
+   }
 }
 
 int main(void) {
@@ -78,8 +84,7 @@ link_parents(people[6], people[4], people[5]);
    print_family_relationships(people[6]);
 
 
-    for (int i = 0; i < 7; i++) {
-        free(people[i]);
-    }
+   free_family_tree(people, 7);
+
     return 0;
 }
